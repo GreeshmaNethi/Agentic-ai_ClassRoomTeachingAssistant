@@ -67,6 +67,7 @@ async def upload_study_material(
     return study_mat
 
 @router.get("", response_model=List[schemas.StudyMaterialResponse])
+@router.get("/", response_model=List[schemas.StudyMaterialResponse])
 def get_user_study_materials(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)

@@ -7,6 +7,7 @@ from app.core.security import get_current_user
 
 router = APIRouter()
 
+@router.post("", response_model=schemas.MaterialResponse)
 @router.post("/", response_model=schemas.MaterialResponse)
 def save_material(material: schemas.MaterialCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     new_material = models.Material(
@@ -20,6 +21,7 @@ def save_material(material: schemas.MaterialCreate, db: Session = Depends(get_db
     db.refresh(new_material)
     return new_material
 
+@router.get("", response_model=List[schemas.MaterialResponse])
 @router.get("/", response_model=List[schemas.MaterialResponse])
 def get_library(db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     materials = db.query(models.Material).filter(models.Material.user_id == current_user.id).order_by(models.Material.created_at.desc()).all()
