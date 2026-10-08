@@ -18,10 +18,12 @@ class Settings(BaseSettings):
 
     def get_database_uri(self) -> str:
         if self.DATABASE_URL:
-            # Render gives postgres:// but SQLAlchemy needs postgresql://
             uri = self.DATABASE_URL
+            # Fix scheme for SQLAlchemy + psycopg2 driver
             if uri.startswith("postgres://"):
-                uri = uri.replace("postgres://", "postgresql://", 1)
+                uri = uri.replace("postgres://", "postgresql+psycopg2://", 1)
+            elif uri.startswith("postgresql://"):
+                uri = uri.replace("postgresql://", "postgresql+psycopg2://", 1)
             return uri
         return self.SQLALCHEMY_DATABASE_URI
 

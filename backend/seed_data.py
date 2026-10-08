@@ -55,7 +55,6 @@ def seed_to_production(data):
                     email=row["email"],
                     hashed_password=row["hashed_password"],
                     role=row["role"],
-                    is_active=row.get("is_active", True),
                 )
                 db.add(user)
         db.commit()
