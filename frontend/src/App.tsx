@@ -77,7 +77,7 @@ function App() {
   }
 
   return (
-    <Router>
+    <Router basename="/Agentic-ai_ClassRoomTeachingAssistant">
       <Routes>
         <Route path="/login" element={!token ? <Login /> : <Navigate to="/" />} />
         <Route path="/register" element={!token ? <Register /> : <Navigate to="/" />} />
